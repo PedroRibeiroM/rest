@@ -17,21 +17,21 @@ pipeline {
         stage('Build') {
             steps {
                 // Compilando o projeto
-                sh './mvnw clean package'
+                bat './mvnw clean package'
             }
         }
 
         stage('Test') {
             steps {
                 // Executando testes
-                sh './mvnw test'
+                bat './mvnw test'
             }
         }
 
         stage('Static Analysis') {
             steps {
                 // Executando análise estática de código (opcional)
-                sh './mvnw checkstyle:check'
+                bat './mvnw checkstyle:check'
             }
         }
 
