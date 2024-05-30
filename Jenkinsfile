@@ -14,50 +14,43 @@ pipeline {
             }
         }
 
-       stage('Build') {
-                   steps {
-                       // Compilando o projeto com Gradle
-                       sh './gradlew clean build'
-                   }
-               }
+        stage('Build') {
+            steps {
+                // Compilando o projeto
+                sh './mvnw clean package'
+            }
+        }
 
-               stage('Test') {
-                   steps {
-                       // Executando testes com Gradle
-                       sh './gradlew test'
-                   }
-               }
+        stage('Test') {
+            steps {
+                // Executando testes
+                sh './mvnw test'
+            }
+        }
 
-               stage('Static Analysis') {
-                   steps {
-                       // Executando análise estática de código, se necessário
-                       sh './gradlew check'
-                   }
-               }
+        stage('Static Analysis') {
+            steps {
+                // Executando análise estática de código (opcional)
+                sh './mvnw checkstyle:check'
+            }
+        }
 
-               stage('Archive Artifacts') {
-                   steps {
-                       // Arquivando artefatos de build, como arquivos JAR ou WAR
-                       archiveArtifacts artifacts: 'build/libs/*.jar', allowEmptyArchive: true
-                   }
-               }
+        stage('Archive Artifacts') {
+            steps {
+                // Arquivando artefatos de build, como arquivos JAR ou WAR
+                archiveArtifacts artifacts: 'target/*.jar', allowEmptyArchive: true
+            }
+        }
 
-               stage('Deploy') {
-                   steps {
-                       // Exemplo de deploy - pode ser para um servidor de aplicação ou serviço em nuvem
-                       // sh 'scp build/libs/*.jar user@server:/path/to/deploy'
-                       // ou
-                       // sh './deploy.sh'
-                   }
-               }
-           }
 
-           post {
-               success {
-                   echo 'Pipeline completada com sucesso!'
-               }
-               failure {
-                   echo 'Pipeline falhou!'
-               }
-           }
-       }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completada com sucesso!'
+        }
+        failure {
+            echo 'Pipeline falhou!'
+        }
+    }
+}
