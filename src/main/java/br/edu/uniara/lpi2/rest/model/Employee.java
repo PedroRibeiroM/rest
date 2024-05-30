@@ -3,9 +3,9 @@ package br.edu.uniara.lpi2.rest.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+
 
 @Data
 @Entity
@@ -24,4 +24,5 @@ public class Employee {
         this.name = name;
         this.role = role;
     }
+
 }
