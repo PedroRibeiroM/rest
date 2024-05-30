@@ -11,6 +11,7 @@ pipeline {
                 git url: 'https://github.com/PedroRibeiroM/rest.git', branch: 'master'
             }
         }
+    }
 
     post {
         success {
